@@ -1,0 +1,20 @@
+<head>
+	<meta charset="utf-8" />
+	<title>Artists</title>
+	<link rel="stylesheet" href='/static/css/base.css'>
+</head>
+<body>
+	<h1>Artists</h1>
+
+	<ul>
+		{% for artist in artists %}
+			<h3><a href="/music/artist/{{ artist.id}} ">
+				{{artist.name}}
+			</h3>
+		{%endfor%}
+	</ul>
+	<p><a href="/music/create/">Add artist</a></p>
+	<p><a href="/music/home/"> Return Home</a></p>
+</body>
+</html>
+

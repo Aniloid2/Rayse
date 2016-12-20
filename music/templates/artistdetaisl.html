@@ -1,0 +1,21 @@
+
+<html>
+<head>
+
+<title>
+	artist test
+</title>
+
+</head>
+
+<body>
+		<h1>Name:  {{ artists.name}}</h1>
+		<h1>Year Formed: {{ artists.year_formed }}</h1>
+		<img src="{{ artists.webpull}}">
+		<h3><a href="/music/artists/"> Go back</a></h3>
+		<form method="POST">
+			{%csrf_token %}
+			<button name='delete' type="submit" value='True'>Delete Artist</button>
+		</form>
+</body>
+</html>

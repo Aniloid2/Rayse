@@ -1,0 +1,127 @@
+<html>
+
+<head>
+<title>
+	Home
+</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+
+<script type="text/javascript">
+	var time = 1;
+	var series_user = [];
+
+
+
+	function detectPositionAndUpdateUser(position , user){
+		if (position == 'one'){
+			document.getElementById('one').innerHTML = time;
+			series_user.push(user);
+			time += 1;
+		}
+		if (position == 'two'){
+			document.getElementById('two').innerHTML = time;
+			series_user.push(user);
+			time+=1;
+		}
+		if (position == 'three'){
+			document.getElementById('three').innerHTML = time;
+			series_user.push(user);
+			time +=1;
+
+		}
+
+		// if (time == 4){
+		// 	$.ajax({
+		// 		type:"POST",
+		// 		url:"",
+		// 		csrfmiddlewaretoken: '{{ csrf_token}}', 
+		// 		data:{'series_user':series_user}
+		// 	});
+		if (time == 4){
+			document.form_user_order.user_1.value = series_user[0];
+			document.form_user_order.user_2.value = series_user[1];
+			document.form_user_order.user_3.value = series_user[2];
+			document.form_user_order.submit();
+		}
+
+
+
+
+		}
+
+
+</script>
+	
+	<div class="jumbotron text-center">
+		<div class="row">
+			<div class = "col-md-2">
+				<p><a href="/music/king/">View King</a></p>
+		</div>
+		<div class="col-md-8">
+			<h1> DateKing 1.0v </h1>
+		</div>
+		<div class="col-md-2">
+			<p><a href="/music/log/">Add Account</a></p>
+		</div>
+	</div>
+</div>
+		
+		
+		
+	<!--<form method = "POST">
+		{%csrf_token %}
+		<button type= "submit" value = "True" name="add_account"> Add Account </button>
+	</forms>-->
+
+
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Name:
+				 {{user_1.name}}</h2>
+			<h2>Year Formed:
+				{{user_1.year_formed}}</h2>
+			<p>Level: {{user_1.level}}</p>
+
+			<p id="one"></p>
+			<button onclick="detectPositionAndUpdateUser('one', {{user_1.id}})"><img src="{{user_1.webpull}}"></button>
+		</div>
+		<div class="col-md-4">
+			<h2>Name:
+				 {{user_2.name}}</h2>
+			<h2>Year Formed:
+				{{user_2.year_formed}}</h2>
+			<p>Level: {{user_2.level}}</p>
+			<p id='two'></p>
+			<button onclick="detectPositionAndUpdateUser('two', {{user_2.id}})"><img src="{{user_2.webpull}}"></button>
+		</div>
+		<div class="col-md-4">
+			<h2>Name:
+				 {{user_3.name}}</h2>
+			<h2>Year Formed:
+				{{user_3.year_formed}}</h2>
+			<p>Level: {{user_3.level}}</p>
+			<p id="three"></p>
+			<button onclick="detectPositionAndUpdateUser('three', {{user_3.id}})"><img src="{{user_3.webpull}}"></button>
+		</div>
+	</div>
+	<form name="form_user_order" style="display:none;" method = "POST" enctype="multipart/form-data"> 
+		{%csrf_token %}
+		User_1 <input name="user_1" type="text"><br>
+		User_2 <input name="user_2" type="text"><br>
+		User_3 <input name="user_3" type="text"><br>
+	</form>
+
+
+</body>
+
+</html>

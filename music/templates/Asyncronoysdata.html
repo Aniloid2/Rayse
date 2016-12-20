@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>HI</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+{% if numb%}	
+<script type="text/javascript">
+	
+
+	function AJ(numbreturn){
+		console.log('Helo')
+		$.ajax({
+
+					type: "POST",
+					url:"",
+					data: {'numb':numbreturn},
+					dataType:"json",
+					success: function(resp){
+						console.log('response recived');
+						document.getElementById('number').innerHTML = resp.numb;
+						AJ(resp.numb);
+						}
+
+				})
+
+			}
+
+	console.log({{numb}});
+
+	AJ({{numb}});
+
+
+
+
+</script>
+{%endif%}
+
+
+<h2>This is an asyncronous test</h2>
+
+{% if numb%}
+	<h3 id="number">{{numb}}</h3>
+
+{%endif%}
+
+
+
+</body>
+</html>

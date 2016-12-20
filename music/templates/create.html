@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<title>
+	Create
+</title>
+</head>
+
+<body>
+	<form method="POST" enctype="multipart/form-data">
+		{%csrf_token %}
+	
+		<h2>Name<br>
+			{{form.name}}</h2>
+
+		<h2>Year Formed<br>
+			{{form.year_formed}}</h2>
+
+		<h2>Picture<br>
+			{{form.webpull}}</h2>
+
+	
+	<button type="submit">Save</button>
+
+
+	</form>
+
+
+
+</body>
+
+</html>

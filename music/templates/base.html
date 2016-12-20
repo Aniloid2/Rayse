@@ -1,0 +1,88 @@
+<html>
+
+<head>
+<title>
+never
+</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+
+<style> 
+#UI {
+    background-color: blue;
+}
+</style>
+</head>
+
+
+<body>
+
+<script type="text/javascript">
+var control = 0;
+
+for (var control = 0; control <= 3; control ++) {
+	document.write(control)
+};
+
+var time = 1;
+var series_pos = [];
+
+function myfunction(position) {
+
+	if (position == 'one') {
+		document.getElementById('user1').innerHTML = time;
+		series_pos.push(position);
+		time += 1;
+	};
+	if (position == 'two'){
+		document.getElementById('user2').innerHTML = time;
+		series_pos.push(position);
+		time += 1;
+	}
+	if (position == 'three'){
+		document.getElementById('user3').innerHTML = time;
+		series_pos.push(position);
+		time += 1;
+
+		
+	}
+	if (time == 4){
+		console.log(series_pos[0]);
+		document.form1.user_1.value = series_pos[0];
+		document.form1.user_2.value = series_pos[1];
+		document.form1.user_3.value = series_pos[2];
+		document.form1.submit();
+	}
+
+	// if (time == 4){
+	// 	$.post("", {'time': time-1, 'series_pos': series_pos });
+	// }
+
+
+	
+
+}
+
+</script>
+
+<h1 id="UI" >hi</h1>
+<p id="user1"></p>
+<button onclick="myfunction('one')" >First user</button>
+
+
+<p id="user2"></p>
+<button onclick="myfunction('two')">Second user</button>
+
+<p id="user3"></p>
+<button onclick="myfunction('three')">Third user</button>
+
+<form name="form1" method="POST" enctype="multipart/form-data" style="display:none;">
+	{%csrf_token %}
+	User_1 <input type="text" name="user_1" ><br>
+	User_2 <input type="text" name="user_2" ><br>
+	User_3 <input type="text" name="user_3" > 
+<!--<input type="submit" value="Submit">-->
+
+</form>
+
+</body>
