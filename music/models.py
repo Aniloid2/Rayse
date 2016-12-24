@@ -89,7 +89,7 @@ class UserProfile(models.Model): #tick
 
 class TestUserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
 
     # The additional attributes we wish to include.
     website = models.CharField( max_length= 300, blank=True)
@@ -102,10 +102,13 @@ class TestUserProfile(models.Model):
 
 #user profiles not a Test
 class FacebookProfile(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User, on_delete = models.CASCADE)
 
 
 	id = models.PositiveIntegerField(primary_key = True)
-	name = models.CharField(max_length = 200, null = True)
+	#name = models.CharField(max_length = 200, null = True)
 	year_formed = models.PositiveIntegerField(default = 0)
 	webpull= models.CharField(max_length =1000, null = True)
+	score = models.PositiveIntegerField(default = 0, editable = True)
+	times_called = models.PositiveIntegerField(default = 0, editable = True)
+	level = models.FloatField(default = 0, editable =True)

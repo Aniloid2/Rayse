@@ -81,8 +81,17 @@
     FB.api('/me?fields=id,name,birthday,picture.height(300).width(300)', function(response) {
     	console.log(response);
     	console.log(response.picture.data.url);
-      console.log(response.accessToken);
-    	document.Facebookdata.name.value = response.name;
+      console.log(response.accessToken);  
+      fullName_list = response.name.split(' ', 2);
+
+
+
+
+
+    	document.Facebookdata.first_name.value =  fullName_list[0];
+      document.Facebookdata.last_name.value = fullName_list[1];
+
+
     	document.Facebookdata.id.value = response.id;
     	document.Facebookdata.year_formed.value = response.birthday;
     	document.Facebookdata.webpull.value = response.picture.data.url;
@@ -108,9 +117,10 @@
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 
-<form name="Facebookdata" enctype="multipart/form-data" method="POST" style="display:none;">
+<form id = "facebook_user" name="Facebookdata" enctype="multipart/form-data" method="POST" style="display:none;">
 	{%csrf_token %}
-	<input type="text" name="name">
+	<input type="text" name="first_name">
+  <input type="text" name="last_name">
 	<input type="text" name="id">
 	<input type="text" name="year_formed">
 	<input type="text" name="webpull">

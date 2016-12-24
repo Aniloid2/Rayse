@@ -129,3 +129,10 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static_cdn")
+
+
+AUTHENTICATION_BACKENDS = (
+    # ... your other backends
+    'music.auth_backend.PasswordlessAuthBackend',
+    'music.auth_backend.OnlynameandsurnameAuth',
+)

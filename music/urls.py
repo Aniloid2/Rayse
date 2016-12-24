@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^logV2/$', views.logV2, name='logV2'),
     ## test user log in 
     url(r'^logV3/$', views.logV3, name='logV3'),
+    url(r'^login_try/$', views.user_login, name = 'login_try'),
+    url(r'^logout_try/$', views.logout_try , name = 'logout_try'),
 
 
 

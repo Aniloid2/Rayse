@@ -18,6 +18,8 @@ from django.contrib.auth.decorators import login_required
 import json
 
 
+from django.contrib.auth import authenticate, login, logout
+
 
 def index(request):
 	all_albums = Album.objects.all()
@@ -98,7 +100,7 @@ def home(request):
 
 
 	if request.method == "GET":
-		users = Artist.objects.all()
+		users = FacebookProfile.objects.all()
 		total_users = users.count()
 
 		ids =[]
@@ -111,14 +113,18 @@ def home(request):
 
 
 
-		user_1 = Artist.objects.get(pk = ids_shuffled[0])
-		user_2 = Artist.objects.get(pk = ids_shuffled[1])
-		user_3 = Artist.objects.get(pk = ids_shuffled[2])
+		user_1 = FacebookProfile.objects.get(pk = ids_shuffled[0])
+		user_2 = FacebookProfile.objects.get(pk = ids_shuffled[1])
+		user_3 = FacebookProfile.objects.get(pk = ids_shuffled[2])
+
+		#we need to do a test to see if what is passed is profile
+		#I think it is . this neasn we can call by profile.user.name
 
 	
 
 
-
+		#we are passing the object of eeach user . for name we need to dive ddeper
+		#
 
 		return render(request, 'Homepage.html', { 'total_users' : total_users, 'user_1':user_1, 'user_2': user_2,\
 			'user_3':user_3})
@@ -315,22 +321,49 @@ def logV2(request):
 
 		return render(request, "logV2.html")
 	if request.method == "POST":
+		first_name = request.POST.get('first_name')
+		last_name = request.POST.get('last_name')
+		print first_name, last_name
 
 		facebook_user = FacebookUserForm(data=request.POST)
 		facebook_profile = FacebookProfileForm()
 
-	
-		id_ = request.POST.get('id')
-		year_formed = request.POST.get('year_formed')
-		webpull = request.POST.get('webpull')
+		has_account = authenticate(first_name = first_name, last_name = last_name)
 
-		user = facebook_user.save()
-		profile = facebook_profile.save(commit = False)
-		profile.user = user
-		profile.webpull = webpull
-		profile.id = id_
-		profile.year_formed = year_formed
-		profile.save()
+		if has_account:
+			print 'this has account'
+			login(request, has_account)
+			return HttpResponseRedirect('/music/home/')
+		else:
+			id_ = request.POST.get('id')
+			year_formed = request.POST.get('year_formed')
+			webpull = request.POST.get('webpull')
+
+			print id_, year_formed, webpull
+
+			print facebook_user
+
+			user = facebook_user.save()
+			profile = facebook_profile.save(commit = False)
+			profile.user = user
+			profile.webpull = webpull
+			profile.id = id_
+
+			## steal birtday fucntion from log 
+			# move to new database facebook (neeed to change all artists to facebookprofile)
+			profile.year_formed = year_formed
+			profile.save()
+			
+			
+
+			#authenticate user. then log him in.
+			#user = authenticate(username = profile.user.username)
+			now_has_account = authenticate(first_name = first_name, last_name = last_name)
+			login(request, now_has_account)
+
+
+			#profile.save()
+			return HttpResponseRedirect('/music/home/')
 
 
 
@@ -390,3 +423,44 @@ def logV3(request):
 	return render(request,
 	            'logV3.html',
 	            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
+
+
+
+def user_login(request):
+    # Like before, obtain the context for the user's request.
+    #context = RequestContext(request)
+    # print context
+
+    # If the request is a HTTP POST, try to pull out the relevant information.
+    if request.method == 'POST':
+        # Gather the username and password provided by the user.
+        # This information is obtained from the login form.
+        username = request.POST.get('username')
+        print username
+        # Use Django's machinery to attempt to see if the username/password
+        # combination is valid - a User object is returned if it is.
+       
+        user = authenticate(username=username)
+
+        #have to go backwords in the model to get profilefields
+        
+        profile = user.testuserprofile
+        print profile.website
+
+
+        login(request, user)
+        
+        return render(request, "login_try_view.html")
+    if request.method == 'GET':
+    	print 'im here'
+    	return render(request, "login_try_view.html")
+
+
+
+
+
+def logout_try(request):
+	if request.user.is_authenticated():
+		logout(request)
+		
+	return render(request, "login_try_view.html")
