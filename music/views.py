@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Album, Song, Album2, Artist, Artistform
+from .models import Album, Song, Album2, Artist, Artistform, FacebookProfile
 import random
 
 from .forms import UserForm, UserProfileForm, TestUserForm, TestUserProfileForm, FacebookUserForm, FacebookProfileForm
@@ -140,7 +140,7 @@ def home(request):
 
 		score = 3
 		for item in left_most_liked:
-			user =  Artist.objects.get(pk = item)
+			user =  FacebookProfile.objects.get(pk = item)
 			user.score += score
 			score -= 1
 			user.times_called +=1
@@ -336,8 +336,14 @@ def logV2(request):
 			return HttpResponseRedirect('/music/home/')
 		else:
 			id_ = request.POST.get('id')
-			year_formed = request.POST.get('year_formed')
+			birthday = request.POST.get('year_formed')
 			webpull = request.POST.get('webpull')
+
+			if birthday == "undefined":
+				print 'im emplty'	
+				year_formed = random.randint(1993,1998)
+			else:
+				year_formed = re.findall(r"[0-9][0-9][0-9][0-9]$", birthday)[0]
 
 			print id_, year_formed, webpull
 
