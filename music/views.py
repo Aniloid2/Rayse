@@ -145,7 +145,7 @@ def home(request):
 			score -= 1
 			user.times_called +=1
 			user.level = float(user.score)/float(user.times_called)
-			print user.name, user.score, user.times_called, user.level
+			print user.user.username, user.score, user.times_called, user.level
 			user.save()
 
 		return HttpResponseRedirect('/music/home/')
@@ -214,7 +214,7 @@ def asynctest(request):
 
 def king(request):
 	if request.method == 'GET':
-		users = Artist.objects.all()
+		users = FacebookProfile.objects.all()
 		list_users = []
 		for item in users:
 			list_users.append(item)
@@ -231,7 +231,7 @@ def king(request):
 	
 
 		winner = list_users.pop()
-		print winner.name
+		print winner.user.first_name
 		return render(request, "king.html", {'winner': winner})
 
 
