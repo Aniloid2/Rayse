@@ -36,7 +36,7 @@ class TestUserProfileForm(forms.ModelForm):
 class FacebookUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name',)
+        fields = ('username', 'first_name', 'last_name',)
 
 class FacebookProfileForm(forms.ModelForm):
     class Meta:

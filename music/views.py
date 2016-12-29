@@ -321,20 +321,23 @@ def logV2(request):
 
 		return render(request, "logV2.html")
 	if request.method == "POST":
+		print 'ive been posted'
 		first_name = request.POST.get('first_name')
 		last_name = request.POST.get('last_name')
-		print first_name, last_name
+		username = request.POST.get('id')
+		print first_name, last_name, username
 
 		facebook_user = FacebookUserForm(data=request.POST)
 		facebook_profile = FacebookProfileForm()
 
-		has_account = authenticate(first_name = first_name, last_name = last_name)
+		has_account = False #authenticate(first_name = first_name, last_name = last_name)
 
 		if has_account:
 			print 'this has account'
 			login(request, has_account)
 			return HttpResponseRedirect('/music/home/')
 		else:
+
 			id_ = request.POST.get('id')
 			birthday = request.POST.get('year_formed')
 			webpull = request.POST.get('webpull')
@@ -470,3 +473,6 @@ def logout_try(request):
 		logout(request)
 		
 	return render(request, "login_try_view.html")
+
+
+
