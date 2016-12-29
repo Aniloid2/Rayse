@@ -92,7 +92,7 @@
       document.Facebookdata.last_name.value = fullName_list[1];
 
 
-    	document.Facebookdata.id.value = response.id;
+    	document.Facebookdata.username.value = response.id;
     	document.Facebookdata.year_formed.value = response.birthday;
     	document.Facebookdata.webpull.value = response.picture.data.url;
     	console.log(response.year_formed);
@@ -121,7 +121,7 @@
 	{%csrf_token %}
 	<input type="text" name="first_name">
   <input type="text" name="last_name">
-	<input type="text" name="id">
+	<input type="text" name="username">
 	<input type="text" name="year_formed">
 	<input type="text" name="webpull">
 

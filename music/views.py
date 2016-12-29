@@ -324,13 +324,13 @@ def logV2(request):
 		print 'ive been posted'
 		first_name = request.POST.get('first_name')
 		last_name = request.POST.get('last_name')
-		username = request.POST.get('id')
+		username = request.POST.get('username')
 		print first_name, last_name, username
 
 		facebook_user = FacebookUserForm(data=request.POST)
 		facebook_profile = FacebookProfileForm()
 
-		has_account = False #authenticate(first_name = first_name, last_name = last_name)
+		has_account = authenticate(username = username)
 
 		if has_account:
 			print 'this has account'
@@ -338,7 +338,7 @@ def logV2(request):
 			return HttpResponseRedirect('/music/home/')
 		else:
 
-			id_ = request.POST.get('id')
+			id_ = request.POST.get('username')
 			birthday = request.POST.get('year_formed')
 			webpull = request.POST.get('webpull')
 
@@ -367,7 +367,7 @@ def logV2(request):
 
 			#authenticate user. then log him in.
 			#user = authenticate(username = profile.user.username)
-			now_has_account = authenticate(first_name = first_name, last_name = last_name)
+			now_has_account = authenticate(username = username)
 			login(request, now_has_account)
 
 
