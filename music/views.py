@@ -20,7 +20,7 @@ import json
 
 from django.contrib.auth import authenticate, login, logout
 
-
+#facebook api disables
 def index(request):
 	all_albums = Album.objects.all()
 	html = ''
@@ -233,7 +233,6 @@ def king(request):
 		winner = list_users.pop()
 		print winner.user.first_name
 		return render(request, "king.html", {'winner': winner})
-
 
 
 
