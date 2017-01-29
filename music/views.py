@@ -424,7 +424,7 @@ def logV5(request):
 			profile.year_formed = birthday
 			profile.save()
 
-			##face acount email = AA
+			##face acount email = BB
 			
 			
 
