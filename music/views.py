@@ -423,6 +423,8 @@ def logV5(request):
 			# move to new database facebook (neeed to change all artists to facebookprofile)
 			profile.year_formed = birthday
 			profile.save()
+
+			##face acount email = AA
 			
 			
 
